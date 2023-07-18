@@ -1,0 +1,26 @@
+Inference
+----------------------
+Inpainting build:
+docker build -t inpainting_server -f InpaintingDockerfile .
+Inpainting run:
+docker run --name inpainting_server -e ip=185.145.129.126 -e port=5672 -e queue_name=inpainting_queue -v /root/nsfw_stable_diffusion/nsfw/logs/:/inference/logs/ --gpus all inpainting_server
+
+Inference build:
+docker build -t inference_server -f InferenceDockerfile .
+Inference run:
+docker run --name inference_server -e ip=185.145.129.126 -e port=5672 -e queue_name=inference_queue -v /root/nsfw_stable_diffusion/nsfw/logs/:/inference/logs/ --gpus all inference_server
+
+RabbitMq 
+----------------------
+CONTAINER run
+docker run --rm -p 15672:15672 -p 5672:5672 --name rabbit rabbitmq:3.10.7-management
+
+ADD USER
+rabbitmqctl add_user full_access s3crEt
+
+ENABLE STATS
+cd  /etc/rabbitmq/conf.d/ && echo management_agent.disable_metrics_collector = false > management_agent.disable_metrics_collector.conf
+
+CREATE INSTANCE
+./vast create instance $id --image gassanov/inference_server --disk 16 --env '-e port=5672 -e queue_name=inference_queue' --onstart-cmd 'python3 -u receive.py --ip $ip --port_rabbit $port --queue_name $queue_name --skip-torch-cuda-test'
+

@@ -1,0 +1,14 @@
+FROM ubuntu
+
+RUN apt-get update
+RUN /bin/sh -c apt-get install -y python3 python3-pip git wget ffmpeg libsm6 libxext6 # buildkit
+
+ENV ip=localhost
+ENV port=5672
+
+COPY /inference/ receive.py inference/
+WORKDIR /inference
+
+RUN /bin/sh -c cd models/Stable-diffusion && wget "https://civitai.com/api/download/models/15640?type=Pruned%20Model&format=PickleTensor"&& pip install pika && pip install -r ../../requirements.txt && mv "15640?type=Pruned Model&format=PickleTensor" urpm_pruned.ckpt
+
+CMD ["/bin/sh" "-c" "python3 -u receive.py --ip $ip --port_rabbit $port --queue_name $queue_name --skip-torch-cuda-test"]
