@@ -1,14 +1,22 @@
-FROM ubuntu
+FROM ubuntu:latest
 
 RUN apt-get update
-RUN /bin/sh -c apt-get install -y python3 python3-pip git wget ffmpeg libsm6 libxext6 # buildkit
+RUN apt-get install -y python3 python3-pip git wget ffmpeg libsm6 libxext6
 
 ENV ip=localhost
 ENV port=5672
+ENV queue_name=inference_queue
+ENV rabbit_user_name=guest
+ENV rabbit_password=guest
 
-COPY /inference/ receive.py inference/
+COPY /stable-diffusion-webui/ inference/
+COPY receive.py inference/
+COPY receive_inpainting.py detect_age.py Gender-and-Age-Detection/* inference/
+
 WORKDIR /inference
 
-RUN /bin/sh -c cd models/Stable-diffusion && wget "https://civitai.com/api/download/models/15640?type=Pruned%20Model&format=PickleTensor"&& pip install pika && pip install -r ../../requirements.txt && mv "15640?type=Pruned Model&format=PickleTensor" urpm_pruned.ckpt
+RUN pip install pika && pip install loguru && pip install opencv-python
 
-CMD ["/bin/sh" "-c" "python3 -u receive.py --ip $ip --port_rabbit $port --queue_name $queue_name --skip-torch-cuda-test"]
+RUN cd models/Stable-diffusion && wget "https://civitai.com/api/download/models/15640" && mv "15640" "urpm.safetensors"
+
+CMD python3 -u receive.py --ip $ip --port_rabbit $port --queue_name $queue_name --rabbit_user_name $rabbit_user_name --rabbit_password $rabbit_password --skip-torch-cuda-test

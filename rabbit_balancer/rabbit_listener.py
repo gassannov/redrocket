@@ -1,4 +1,4 @@
-from vast_api import create_instance, delete_instance
+from runpod_api import create_instance, delete_instance
 import time
 import asyncio
 from goroutine.app import go
@@ -7,10 +7,11 @@ from loguru import logger
 
 async def instance_listen(time_after_create: int,
                           time_pause: int,
-                          break_condition):
+                          break_condition,
+                          create_function=create_instance):
     is_first = True
     logger.info('instance listen ready')
-    contract_id = create_instance()
+    contract_id = create_function()
     logger.info('instance listen start')
     i = 0
     while True:
@@ -26,18 +27,21 @@ async def instance_listen(time_after_create: int,
 
 
 class Listener():
-    def __init__(self, instance_create_condition,
+    def __init__(self,
+                 instance_create_condition,
                  instance_break_condition,
                  pause_time=1,
                  callback_time=200,
                  instance_create_time=3600,
-                 instance_pause_time=10) -> None:
+                 instance_pause_time=10,
+                 create_function=create_instance) -> None:
         self.instance_break_condition = instance_break_condition
         self.instance_create_condition = instance_create_condition
         self.instance_create_time = instance_create_time
         self.instance_pause_time = instance_pause_time
         self.callback_time = callback_time
         self.pause_time = pause_time
+        self.create_function = create_function
 
     async def start_listen(self):
         logger.info('start listen main listener')
@@ -47,7 +51,8 @@ class Listener():
                 go(instance_listen,
                    self.instance_create_time,
                    self.instance_pause_time,
-                   self.instance_break_condition)
+                   self.instance_break_condition,
+                   self.create_function)
                 logger.info('instance create after pause')
                 time.sleep(self.callback_time)
             else:

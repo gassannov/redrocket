@@ -39,12 +39,12 @@ def inpainting_inference(image, mask, prompt, seed, batch_size, height=512, widt
                                            extra_outputs=[None, '', ''])
 #     params = {'id_task': 'task(nk26d8lhhsbnprv)', 'mode': 2, 'prompt': 'a fat yellow cat sit on a bench', 'negative_prompt': '', 'prompt_styles': [], 'init_img': None, 'sketch': None, 'init_img_with_mask': {'image': <PIL.Image.Image image mode=RGBA size=512x512 at 0x7F157D2E9E40>, 'mask': <PIL.PngImagePlugin.PngImageFile image mode=RGBA size=512x512 at 0x7F157D2EBBE0>}, 'inpaint_color_sketch': None, 'inpaint_color_sketch_orig': None, 'init_img_inpaint': None, 'init_mask_inpaint': None, 'steps': 20, 'sampler_index': 0, 'mask_blur': 4, 'mask_alpha': 0, 'inpainting_fill': 1, 'restore_faces': False, 'tiling': False, 'n_iter': 1, 'batch_size': 1, 'cfg_scale': 7, 'image_cfg_scale': 1.5, 'denoising_strength': 0.75, 'seed': -1.0, 'subseed': -1.0, 'subseed_strength': 0, 'seed_resize_from_h': 0, 'seed_resize_from_w': 0, 'seed_enable_extras': False, 'selected_scale_tab': 0, 'height': 512, 'width': 512, 'scale_by': 1, 'resize_mode': 0, 'inpaint_full_res': 0, 'inpaint_full_res_padding': 32, 'inpainting_mask_invert': 0, 'img2img_batch_input_dir': '', 'img2img_batch_output_dir': '', 'img2img_batch_inpaint_mask_dir': '', 'override_settings_texts': [], 'args': (0, <scripts.controlnet_ui.controlnet_ui_group.UiControlNetUnit object at 0x7f157d2ebee0>, '<ul>\n<li><code>CFG Scale</code> should be 2 or lower.</li>\n</ul>\n', True, True, '', '', True, 50, True, 1, 0, False, 4, 0.5, 'Linear', 'None', '<p style="margin-bottom:0.75em">Recommended settings: Sampling Steps: 80-100, Sampler: Euler a, Denoising strength: 0.8</p>', 128, 8, ['left', 'right', 'up', 'down'], 1, 0.05, 128, 4, 0, ['left', 'right', 'up', 'down'], False, False, 'positive', 'comma', 0, False, False, '', '<p style="margin-bottom:0.75em">Will upscale the image by the selected scale factor; use width and height sliders to set tile size</p>', 64, 0, 2, 1, '', [], 0, '', [], 0, '', [], True, False, False, False, 0, None, None, False, 50), 'override_settings': {}}
 
-#     result = wrapped_img2img("", 4, prompt, NEGATIVE_PROMPT, [], None, None, 
-#         None, None, None, image, mask, 20, 0, 4, 0, 1, False, False, 1, 1, 7, 1.5, 
-#         0.75, seed, -1.0, 0, 0, 0, False, 512, 512, 0, 0, 32, 0, '', '', '', [], 
+#     result = wrapped_img2img("", 4, prompt, NEGATIVE_PROMPT, [], None, None,
+#         None, None, None, image, mask, 20, 0, 4, 0, 1, False, False, 1, 1, 7, 1.5,
+#         0.75, seed, -1.0, 0, 0, 0, False, 512, 512, 0, 0, 32, 0, '', '', '', [],
 #         0, '<ul>\n<li><code>CFG Scale</code> should be 2 or lower.</li>\n</ul>\n', True, True, '', '', True, 50, True, 1, 0, False, 4, 1, 'None', '<p style="margin-bottom:0.75em">Recommended settings: Sampling Steps: 80-100, Sampler: Euler a, Denoising strength: 0.8</p>', 128, 8, ['left', 'right', 'up', 'down'], 1, 0.05, 128, 4, 0, ['left', 'right', 'up', 'down'], False, False, 'positive', 'comma', 0, False, False, '', '<p style="margin-bottom:0.75em">Will upscale the image by the selected scale factor; use width and height sliders to set tile size</p>', 64, 0, 2, 1, '', 0, '', 0, '', True, False, False, False, 0
 #     )
-    result = wrapped_img2img('task(nk26d8lhhsbnprv)', 4, prompt, NEGATIVE_PROMPT, [], None, None, None, None, None, image, mask, 20, 0, 4, 0, 1, False, False, 1, 1, 7, 1.5, 0.75, -1.0, -1.0, 0, 0, 0, False, 0, height, width, 1, 0, 0, 32, 0, '', '','', [], 0, None, '<ul>\n<li><code>CFG Scale</code> should be 2 or lower.</li>\n</ul>\n', True, True, '', '', True, True, '', '', True, 50, True, 1, 0, False, 4, 0.5, 'Linear', 'None', '<p style="margin-bottom:0.75em">Recommended settings: Sampling Steps: 80-100, Sampler: Euler a, Denoising strength: 0.8</p>', 128, 8, ['left', 'right', 'up', 'down'], 1, 0.05, 128, 4, 0, ['left', 'right', 'up', 'down'], False, False, 'positive', 'comma', 0, False, False, '', '<p style="margin-bottom:0.75em">Will upscale the image by the selected scale factor; use width and height sliders to set tile size</p>', 64, 0, 2, 1, '', [], 0, '', [], 0, '', [], True, False, False, False, 0, None, None, False, 50)
+    result = wrapped_img2img('task(nk26d8lhhsbnprv)', 4, prompt, NEGATIVE_PROMPT, [], None, None, None, None, None, image, mask, 20, 0, 10, 10, 10, False, False, 1, 1, 7, 1.5, 0.75, -1.0, -1.0, 0, 0, 0, False, 0, height, width, 1, 0, 0, 32, 0, '', '','', [], 0, None, '<ul>\n<li><code>CFG Scale</code> should be 2 or lower.</li>\n</ul>\n', True, True, '', '', True, True, '', '', True, 50, True, 1, 0, False, 4, 0.5, 'Linear', 'None', '<p style="margin-bottom:0.75em">Recommended settings: Sampling Steps: 80-100, Sampler: Euler a, Denoising strength: 0.8</p>', 128, 8, ['left', 'right', 'up', 'down'], 1, 0.05, 128, 4, 0, ['left', 'right', 'up', 'down'], False, False, 'positive', 'comma', 0, False, False, '', '<p style="margin-bottom:0.75em">Will upscale the image by the selected scale factor; use width and height sliders to set tile size</p>', 64, 0, 2, 1, '', [], 0, '', [], 0, '', [], True, False, False, False, 0, None, None, False, 50)
     return result
 
 
@@ -89,8 +89,8 @@ def callback(ch, method, properties, body):
     else:
         try:
             base64_code = request_params['input_image']
-            img = Image.open(io.BytesIO( base64.b64decode(base64_code) ) )
-            img.save('inpainting_input_image.jpg')
+            img = Image.open(io.BytesIO(base64.b64decode(base64_code)))
+            # img.save('inpainting_input_image.jpg')
             age = '(20-24)'
 #             try:
 #                 age = detect_age('inpainting_input_image.jpg')[0]
@@ -98,7 +98,7 @@ def callback(ch, method, properties, body):
 #                 age = '(25-32)'
 #                 logger.error(f'can not detect age:{e}')
             logger.info(f'detected age: {age}')
-            if age != '(0-2)' and age != '(4-6)' and age != '(8-12)': 
+            if age != '(0-2)' and age != '(4-6)' and age != '(8-12)':
                 base64_mask_code = request_params['mask']
                 mask = Image.open(io.BytesIO(base64.b64decode(base64_mask_code)))
                 w, h = img.size
@@ -142,7 +142,7 @@ def callback(ch, method, properties, body):
             resp_dict[f'image{i}'] = img_str.decode('utf-8')
         except Exception as e:
             resp_dict = {'message': 'error while make base64 from result'}
-            logger.error(f'unexpected error while make base64 from result: {e}', )
+            logger.error(f'unexpected error while make base64 from result: {e}')
 
     try:
         ch.basic_publish(exchange='',

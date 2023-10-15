@@ -3,16 +3,17 @@ FROM ubuntu
 RUN apt-get update
 RUN apt-get install -y python3 python3-pip git wget ffmpeg libsm6 libxext6
 
-
 ENV ip "localhost"
 ENV port 5672
 
-COPY /inference/ inference/
+COPY /stable-diffusion-webui/ inference/
 COPY receive.py inference/
-COPY /inference_inpainting/ receive_inpainting.py detect_age.py Gender-and-Age-Detection/* inference/
+COPY receive_inpainting.py detect_age.py Gender-and-Age-Detection/* inference/
 
 WORKDIR /inference
 
-RUN cd models/Stable-diffusion && wget "https://civitai.com/api/download/models/15670?type=Model&format=PickleTensor" && pip install pika && pip install -r ../../requirements.txt && mv "15670?type=Model&format=PickleTensor" urpm_inpainting.ckpt
+RUN pip install pika && pip install loguru && pip install opencv-python
+#&& pip install -r requirements.txt
+RUN cd models/Stable-diffusion && wget "https://civitai.com/api/download/models/15670" && mv "15670" "urpm_inpainting.safetensors"
 
-CMD python3 -u receive.py --ip $ip --port_rabbit $port --skip-torch-cuda-test
+CMD python3 -u receive_inpainting.py --ip $ip --port_rabbit $port --skip-torch-cuda-test
